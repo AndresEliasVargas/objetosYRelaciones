@@ -13,35 +13,40 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Personal CSS -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Hacks para las gradientes -->
+    <!--[if gte IE 9]
+        <style type="text/css"> .gradient { filter: none; } </style>
+    <![endif]-->
 </head>
 
 <body class="container-fluid">
     <main>
-        <section class="row bg-info" id="ingreso">
+        <section class="row section1" id="ingreso">
             <div class="col-md-4"></div>
 
             <div class="col-md-4 mt-5 pt-5 pb-5">
-                <h1 class="text-center mt-4 text-white">Registro Clientes</h1>
+                <h1 class="text-center mt-4 text-light">Registro Clientes</h1>
 
                 <form class="mt-5 mb-5">
                     <div class="form-group">
-                        <input type="text" class="form-control bg-info" placeholder="Nombre" id="nombreTxt">
+                        <input type="text" class="form-control bg-transparent" placeholder="Nombre" id="nombreTxt">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control bg-info" placeholder="Apellido" id="apellidoTxt">
+                        <input type="text" class="form-control bg-transparent" placeholder="Apellido" id="apellidoTxt">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control bg-info" placeholder="Email" id="emailTxt">
+                        <input type="email" class="form-control bg-transparent" placeholder="Email" id="emailTxt">
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control bg-info" placeholder="Fondos disponibles"
+                        <input type="number" class="form-control bg-transparent" placeholder="Fondos disponibles"
                             id="fondosTxt">
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control bg-info" placeholder="Mensualidad" id="mensualidadTxt">
+                        <input type="number" class="form-control bg-transparent" placeholder="Mensualidad" id="mensualidadTxt">
                     </div>
 
-                    <button type="button" class="btn btn-lg btn-block btn-success" id="btnAgregar">Agregar</button>
+                    <button type="button" class="btn btn-lg btn-block btn-dark" id="btnAgregar">Agregar</button>
                 </form>
             </div>
 
