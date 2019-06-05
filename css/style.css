@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* Remueve el number spin del input */
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Inicio: Estilos Generales */
+
+section {
+    height: 100vh;
+}
+
+/* Fin: Estilos Generales */
+
+/* Inicio: Input */
+
+#ingreso .form-control {
+    border-top: 0;
+    border-bottom: 1px solid #000;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+}
+
+#ingreso .form-control:focus {
+    border-bottom: 1px solid rgb(214, 13, 97);
+}
+
+/* Elimina el outline en los siguientes campos de formularios y botones */
+
+textarea:hover, input:hover, textarea:active, input:active, textarea:focus, input:focus, button:focus, button:active, button:hover, label:focus, .btn:active, .btn.active {
+    outline: 0px !important;
+    -webkit-appearance: none !important;
+}
+
+#ingreso input::placeholder, #ingreso input {
+    color: #FFF;
+}
+
+/* Fin: Input */
