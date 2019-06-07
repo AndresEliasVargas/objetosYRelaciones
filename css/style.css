@@ -1,4 +1,17 @@
 @charset "UTF-8";
+
+/*Inicio: Variables*/
+:root{
+    --white:#FFF;
+    --black:#000;
+    --amarillo-claro:#F8EFBA;
+    --red:#F00;
+    --celeste-claro:#83d5ec;
+    --celeste-medio:#64c7e3;
+    --celeste-oscuro:#34b2d5;
+}
+/*Fin: Variables*/
+
 /* Inicio: Resets */
 /* Remueve el number spin del input */
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
@@ -13,7 +26,7 @@ input[type=number] {
 textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, 
 input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, 
 [type=tel].form-control:focus, [contenteditable].form-control:focus {
-      box-shadow: inset 0 -1px 0 #F8EFBA;
+      box-shadow: inset 0 -1px 0 var(--amarillo-claro);
 }
 
 /* Fin: Resets */
@@ -24,33 +37,55 @@ section {
 }
 
 .section1 {
-    background: rgba(131, 213, 236, 1);
-    background: -moz-radial-gradient(center, ellipse cover, rgba(131, 213, 236, 1) 0%, rgba(100, 199, 227, 1) 41%, rgba(52, 178, 213, 1) 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(131, 213, 236, 1)), color-stop(41%, rgba(100, 199, 227, 1)), color-stop(100%, rgba(52, 178, 213, 1)));
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(131, 213, 236, 1) 0%, rgba(100, 199, 227, 1) 41%, rgba(52, 178, 213, 1) 100%);
-    background: -o-radial-gradient(center, ellipse cover, rgba(131, 213, 236, 1) 0%, rgba(100, 199, 227, 1) 41%, rgba(52, 178, 213, 1) 100%);
-    background: -ms-radial-gradient(center, ellipse cover, rgba(131, 213, 236, 1) 0%, rgba(100, 199, 227, 1) 41%, rgba(52, 178, 213, 1) 100%);
-    background: radial-gradient(ellipse at center, rgba(131, 213, 236, 1) 0%, rgba(100, 199, 227, 1) 41%, rgba(52, 178, 213, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83d5ec', endColorstr='#34b2d5', GradientType=1);
+    background: var(--celeste-claro);
+    background: -moz-radial-gradient(center, ellipse cover,
+                                    var(--celeste-claro) 0%,
+                                    var(--celeste-medio) 41%,
+                                    var(--celeste-oscuro) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%,
+                                color-stop(0%, var(--celeste-claro)),
+                                color-stop(41%, var(--celeste-medio)),
+                                color-stop(100%, var(--celeste-oscuro)));
+    background: -webkit-radial-gradient(center, ellipse cover,
+                                        var(--celeste-claro) 0%,
+                                        var(--celeste-medio) 41%,
+                                        var(--celeste-oscuro) 100%);
+    background: -o-radial-gradient(center, ellipse cover,
+                                  var(--celeste-claro) 0%,
+                                  var(--celeste-medio) 41%,
+                                  var(--celeste-oscuro) 100%);
+    background: -ms-radial-gradient(center, ellipse cover,
+                                   var(--celeste-claro) 0%,
+                                   var(--celeste-medio) 41%,
+                                   var(--celeste-oscuro) 100%);
+    background: radial-gradient(ellipse at center,
+                               var(--celeste-claro) 0%,
+                               var(--celeste-medio) 41%,
+                               var(--celeste-oscuro) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=var(--celeste-claro), endColorstr=var(--celeste-oscuro), GradientType=1);
 }
 /* Fin: Estilos Generales */
 
 /* Inicio: Input */
 #ingreso .form-control {
     border-top: 0;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--black);
     border-right: 0;
     border-left: 0;
     border-radius: 0;
 }
 
 #ingreso .form-control:focus {
-    border-bottom: 1px solid #F8EFBA;
+    border-bottom: 1px solid var(--amarillo-claro);
 }
 
 #ingreso input::placeholder, #ingreso input {
-    color: #FFF;
+    color: var(--white);
 }
 /* Fin: Input */
 
-/* Inicio: sweetAlert2 Styles */
+/* Inicio: Campos Tabla */
+.monto-rojo{
+    color: var(--red);
+};
+/* Fin: Campos Tabla */

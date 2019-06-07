@@ -1,22 +1,11 @@
 'use strict';
 
-//Permite agregar los clientes al Objeto Cliente
-const agregarCliente = (paCliente) => {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        
-    });
+const cobrar = (pnombreEmpresa, pnuevoCliente) => {
+    pnombreEmpresa.cobrarACliente(pnuevoCliente);
+    actualizarTabla();
+};
 
-    Toast.fire({
-        type: 'success',
-        title: 'Cliente almacenado correctamente'
-    })
-
-    //Colocar el comando para agregar a la Class Cliente los datos
-    
-    console.log(paCliente);
-    //return paCliente;
+const eliminar = (pnombreEmpresa, pnuevoCliente) => {
+    pnombreEmpresa.eliminarCliente(pnuevoCliente);
+    actualizarTabla();
 };

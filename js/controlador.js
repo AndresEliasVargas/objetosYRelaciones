@@ -6,6 +6,7 @@ const inputApellido = document.querySelector('#apellidoTxt');
 const inputEmail = document.querySelector('#emailTxt');
 const inputFondos = document.querySelector('#fondosTxt');
 const inputMensualidad = document.querySelector('#mensualidadTxt');
+const outputTabla = document.querySelector('#tblClientes');
 
 //botones
 const btnAgregar = document.querySelector('#btnAgregar');
@@ -16,29 +17,30 @@ const regexEmail = /^(([^<>()[\]\.,;:\s@\"ñ#¿¡@´]+(\.[^<>()[\]\.,;:\s@\"ñ#�
 const regexLetras = /^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+$/;
 const regexNumeros = /^([0-9])/;
 
-//Objeto Cliente
-const aCliente = [];
+//Datos Quemados
+const nombreEmpresa = new Empresa('Los Patitos');
+const andres = new Cliente('Andrés', 'Vargas', 'andresvargas@lospatitos.com', 300, 45);
+const manuel = new Cliente('Manuel', 'Flores', 'manuelFlores@lospatitos.com', 150, 35);
+const john = new Cliente('John', 'Doe', 'johndoe@lospatitos.com', 200, 10);
 
+nombreEmpresa.agregarCliente(andres);
+nombreEmpresa.agregarCliente(manuel);
+nombreEmpresa.agregarCliente(john);
 
 //Función que valida los campos
 const validarCampos = () => {
-    // let sNombre = inputNombre.value;
-    // let sApellido = inputApellido.value;
-    // let sEmail = inputEmail.value;
-    // let nFondos = Number(inputFondos.value);
-    // let nMensualidad = Number(inputMensualidad.value);
-
-    let sNombre = 'Andrés';
-    let sApellido = 'Vargas';
-    let sEmail = 'andreselias.vargas@gmail.com';
-    let nFondos = 10;
-    let nMensualidad = 10;
+    let sNombre = inputNombre.value;
+    let sApellido = inputApellido.value;
+    let sEmail = inputEmail.value;
+    let nFondos = Number(inputFondos.value);
+    let nMensualidad = Number(inputMensualidad.value);
+    var nuevoCliente = new Cliente(sNombre, sApellido, sEmail, nFondos, nMensualidad);
 
     let validarEstado = true;
     let bError = validar(sNombre, sApellido, sEmail, nFondos, nMensualidad);
 
     //Validadores
-    if (bError == true) {
+    if (bError) {
         if (nFondos === 0 || nMensualidad === 0) {
             Swal.fire({
                 type: 'error',
@@ -74,12 +76,24 @@ const validarCampos = () => {
                 text: 'El email no es valido',
             })
             validarEstado = false;
+        } else if (nFondos < nMensualidad) {
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Fondos insuficientes',
+            })
+            validarEstado = false;
         };
-    };
+    } else {
 
+        //AgregarDatos
+        let estadoDatos = nombreEmpresa.agregarCliente(nuevoCliente);
 
-    //AgregarDatos
-    if (validarEstado) { agregarCliente(aCliente) };
+        if (estadoDatos) {
+            limpiarCampos();
+            actualizarTabla();
+        }
+    }
 };
 
 //Valida los campos que se colocan en rojo
@@ -111,7 +125,7 @@ const validar = (psNombre, psApellido, psEmail, pnFondos, pnMensualidad) => {
     };
 
     //Valida Fondos
-    if (regexNumeros.test(pnFondos) == false || pnFondos == '' || pnFondos == null || pnFondos == undefined) {
+    if (regexNumeros.test(pnFondos) == false || pnFondos == '' || pnFondos == null || pnFondos == undefined || pnFondos < pnMensualidad) {
         bError = true;
         inputFondos.classList.add('border-danger');
     } else {
@@ -129,4 +143,73 @@ const validar = (psNombre, psApellido, psEmail, pnFondos, pnMensualidad) => {
     return bError;
 }
 
+//Actualizar Tabla
+const actualizarTabla = () => {
+    const tbody = document.querySelector('#tblClientes tbody');
+
+    //Limpia la tabla
+    for (let i = (outputTabla.rows.length - 1); i > 0; i--) {
+        outputTabla.deleteRow(i);
+    }
+
+    //Crea el row, las columnas y los botones de la tabla
+    for (let i = 0; i < nombreEmpresa.clientes.length; i++) {
+        //crea el row
+        let fila = tbody.insertRow();
+
+        //crea las celdas
+        let celdaNombre = fila.insertCell();
+        let celdaApellido = fila.insertCell();
+        let celdaEmail = fila.insertCell();
+        let celdaFondos = fila.insertCell();
+        let celdaMensualidad = fila.insertCell();
+        let celdaCobrar = fila.insertCell();
+        let celdaEliminarCliente = fila.insertCell();
+
+        //crea los botones
+        var btnCobrar = document.createElement('button');
+        var btnEliminar = document.createElement('button');
+
+        //Inserta los datos en la celda
+        celdaNombre.innerHTML = nombreEmpresa.clientes[i].nombre;
+        celdaApellido.innerHTML = nombreEmpresa.clientes[i].apellido;
+        celdaEmail.innerHTML = nombreEmpresa.clientes[i].email;
+        celdaFondos.innerHTML = nombreEmpresa.clientes[i].fondos;
+        celdaMensualidad.innerHTML = nombreEmpresa.clientes[i].mensualidad;
+
+        //Inserta el boton Cobrar
+        btnCobrar.setAttribute('id', 'btnCobrar');
+        btnCobrar.className = 'btn btn-warning btn-block';
+        btnCobrar.innerHTML = 'Cobrar';
+        btnCobrar.cliente = nombreEmpresa.clientes[i];
+        celdaCobrar.appendChild(btnCobrar);
+
+        //Inserta el boton Eliminar
+        btnEliminar.setAttribute('id', 'btnEliminar');
+        btnEliminar.className = 'btn btn-danger btn-block';
+        btnEliminar.innerHTML = 'Eliminar';
+        btnEliminar.cliente = nombreEmpresa.clientes[i];
+        celdaEliminarCliente.appendChild(btnEliminar);
+
+        if(!nombreEmpresa.clientes[i].validarFondos){
+            fila.classList.add('monto-rojo');
+            btnCobrar.disabled = true;
+            btnCobrar.classList.add('text-secondary');
+        }
+    }
+};
+
+const limpiarCampos = () => {
+    inputNombre.value = '';
+    inputApellido.value = '';
+    inputEmail.value = '';
+    inputFondos.value = '';
+    inputMensualidad.value = '';
+};
+
+actualizarTabla();
+
+//Eventos de Botones
 btnAgregar.addEventListener('click', validarCampos);
+btnCobrar.addEventListener('click', cobrar(nombreEmpresa, nuevoCliente));
+btnEliminar.addEventListener('click', cobrar(nombreEmpresa, nuevoCliente));
