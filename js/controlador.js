@@ -211,5 +211,3 @@ actualizarTabla();
 
 //Eventos de Botones
 btnAgregar.addEventListener('click', validarCampos);
-btnCobrar.addEventListener('click', cobrar(nombreEmpresa, nuevoCliente));
-btnEliminar.addEventListener('click', cobrar(nombreEmpresa, nuevoCliente));
