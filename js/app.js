@@ -182,6 +182,8 @@ const actualizarTabla = () => {
         btnCobrar.className = 'btn btn-warning btn-block';
         btnCobrar.innerHTML = 'Cobrar';
         btnCobrar.cliente = nombreEmpresa.clientes[i];
+        //Se inicializa el email en un dataset (https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset)
+        btnCobrar.dataset.email = nombreEmpresa.clientes[i].email;
         celdaCobrar.appendChild(btnCobrar);
 
         //Inserta el boton Eliminar
@@ -189,9 +191,11 @@ const actualizarTabla = () => {
         btnEliminar.className = 'btn btn-danger btn-block';
         btnEliminar.innerHTML = 'Eliminar';
         btnEliminar.cliente = nombreEmpresa.clientes[i];
+        //Se inicializa el email en un dataset (https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset)
+        btnEliminar.dataset.email = nombreEmpresa.clientes[i].email;
         celdaEliminarCliente.appendChild(btnEliminar);
 
-        if(!nombreEmpresa.clientes[i].validarFondos){
+        if (!nombreEmpresa.clientes[i].validarFondos) {
             fila.classList.add('monto-rojo');
             btnCobrar.disabled = true;
             btnCobrar.classList.add('text-secondary');

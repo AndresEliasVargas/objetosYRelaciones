@@ -41,7 +41,7 @@ class Empresa {
     };
 
     //Eliminar
-    eliminarCliente(cliente) {
+    eliminarCliente(paPersona) {
         //sweetalert2 - Botones de cancelar y eliminar, estilos
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -64,7 +64,7 @@ class Empresa {
             if (result.value) {
                 // Métodos que permiten los cambios en la persona y la interfaz
                 for (let i = 0; i < this.clientes.length; i++) {
-                    if (cliente.email === this.clientes[i].email) {
+                    if (paPersona.email === this.clientes[i].email) {
                         this.clientes.splice(i, 1);
                         swalWithBootstrapButtons.fire(
                             'Eliminado!',
@@ -84,9 +84,9 @@ class Empresa {
     };
 
     //Cobrar a cliente
-    cobrarACliente(cliente) {
+    cobrarACliente(paPersona) {
         for (let i = 0; i < this.clientes.length; i++) {
-            if (cliente.email === this.clientes[i].email) {
+            if (paPersona.email === this.clientes[i].email) {
                 this.clientes[i].pagar();
 
                 //Debe estar aquí porque si se pone en el controlador genera una erronea funcionalidad
