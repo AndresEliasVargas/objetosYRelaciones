@@ -1,2 +1,2 @@
 # Objetos Y relaciones
-Tarea de la Universidad
+Tarea Universidad Cenfotec. Curso Programación Web Dinámica. Prof: Esteban Padilla.
