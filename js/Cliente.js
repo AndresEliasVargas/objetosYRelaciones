@@ -7,24 +7,22 @@ class Cliente {
         this.email = psEmail;
         this.fondos = pnFondos;
         this.mensualidad = pnMensualidad;
-
-        this.validarFondos = false;
-        this.comprobarFondos();
     }
 
     //Metodo del cliente
     comprobarFondos() {
         if (this.fondos !== 0 && this.fondos >= this.mensualidad) {
-            this.validarFondos = true;
+            return true;
         } else {
-            this.validarFondos = false;
+            return false;
         }
     }
 
     pagar() {
         if (this.fondos >= this.mensualidad) {
             this.fondos -= this.mensualidad;
-            this.comprobarFondos();
+            return true;
         }
+        return false;
     }
 };

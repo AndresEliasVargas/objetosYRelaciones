@@ -85,10 +85,8 @@ const validarCampos = () => {
             validarEstado = false;
         };
     } else {
-
         //AgregarDatos
         let estadoDatos = nombreEmpresa.agregarCliente(nuevoCliente);
-
         if (estadoDatos) {
             limpiarCampos();
             actualizarTabla();
@@ -184,6 +182,7 @@ const actualizarTabla = () => {
         btnCobrar.cliente = nombreEmpresa.clientes[i];
         //Se inicializa el email en un dataset (https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset)
         btnCobrar.dataset.email = nombreEmpresa.clientes[i].email;
+        btnCobrar.onclick = cobrarCliente;
         celdaCobrar.appendChild(btnCobrar);
 
         //Inserta el boton Eliminar
@@ -193,14 +192,39 @@ const actualizarTabla = () => {
         btnEliminar.cliente = nombreEmpresa.clientes[i];
         //Se inicializa el email en un dataset (https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset)
         btnEliminar.dataset.email = nombreEmpresa.clientes[i].email;
+        btnEliminar.onclick = removerCliente;
         celdaEliminarCliente.appendChild(btnEliminar);
 
-        if (!nombreEmpresa.clientes[i].validarFondos) {
+        if (!nombreEmpresa.clientes[i].comprobarFondos()) {
             fila.classList.add('monto-rojo');
             btnCobrar.disabled = true;
             btnCobrar.classList.add('text-secondary');
+        } else {
+            btnCobrar.disabled = false;
+            fila.classList.remove('monto-rojo');
+            btnCobrar.classList.remove('text-secondary');
         }
     }
+};
+
+const cobrarCliente = (e) => {
+    //console.log(e.target.dataset.email);
+    let validarPago = nombreEmpresa.cobrarACliente(e.target.dataset.email);
+
+    if (!validarPago) {
+        Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'El cliente no tiene fondos suficientes',
+            })
+    } else {
+        actualizarTabla();
+    }
+};
+
+const removerCliente = (e) => {
+    //console.log(e.target.dataset.email);
+    nombreEmpresa.eliminarCliente(e.target.dataset.email);
 };
 
 const limpiarCampos = () => {
