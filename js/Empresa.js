@@ -111,4 +111,27 @@ class Empresa {
         }
         return validarPago;
     };
+
+    //Agregar fondos
+    agregarAFondos(pemail) {
+        Swal.fire({
+            html: '<input type="number" placeholder="Fondos" id="inputFondos" class="swal2-input">',
+            title: 'Ingrese los fondos',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Agregar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                const fondos = Number(document.getElementById('inputFondos').value);
+                for (let i = 0; i < this.clientes.length; i++) {
+                    if (pemail === this.clientes[i].email) {
+                        this.clientes[i].fondos += fondos;
+                        actualizarTabla();
+                    }
+                }
+            }
+        })
+    };
+    
 };

@@ -161,12 +161,14 @@ const actualizarTabla = () => {
         let celdaEmail = fila.insertCell();
         let celdaFondos = fila.insertCell();
         let celdaMensualidad = fila.insertCell();
+        let celdaAgregar = fila.insertCell();
         let celdaCobrar = fila.insertCell();
         let celdaEliminarCliente = fila.insertCell();
 
         //crea los botones
-        var btnCobrar = document.createElement('button');
-        var btnEliminar = document.createElement('button');
+        let btnAgregarFondos = document.createElement('button');
+        let btnCobrar = document.createElement('button');
+        let btnEliminar = document.createElement('button');
 
         //Inserta los datos en la celda
         celdaNombre.innerHTML = nombreEmpresa.clientes[i].nombre;
@@ -174,6 +176,15 @@ const actualizarTabla = () => {
         celdaEmail.innerHTML = nombreEmpresa.clientes[i].email;
         celdaFondos.innerHTML = nombreEmpresa.clientes[i].fondos;
         celdaMensualidad.innerHTML = nombreEmpresa.clientes[i].mensualidad;
+
+        //Inserta boton AgregarFondos
+        btnAgregarFondos.setAttribute('id', 'btnAgregarFondos');
+        btnAgregarFondos.className = 'btn btn-info btn-block';
+        btnAgregarFondos.innerHTML = 'Agregar';
+        btnAgregarFondos.cliente = nombreEmpresa.clientes[i];
+        btnAgregarFondos.dataset.email = nombreEmpresa.clientes[i].email;
+        btnAgregarFondos.onclick = agregarFondos;
+        celdaAgregar.appendChild(btnAgregarFondos);
 
         //Inserta el boton Cobrar
         btnCobrar.setAttribute('id', 'btnCobrar');
@@ -196,16 +207,22 @@ const actualizarTabla = () => {
         celdaEliminarCliente.appendChild(btnEliminar);
 
         if (!nombreEmpresa.clientes[i].comprobarFondos()) {
-            fila.classList.add('monto-rojo');
+            fila.classList.add('bg-danger');
             btnCobrar.disabled = true;
             btnCobrar.classList.add('text-secondary');
         } else {
             btnCobrar.disabled = false;
-            fila.classList.remove('monto-rojo');
+            fila.classList.remove('bg-danger');
             btnCobrar.classList.remove('text-secondary');
         }
     }
 };
+
+const agregarFondos = (e) => {
+    //console.log(e.target.dataset.email);
+    nombreEmpresa.agregarAFondos(e.target.dataset.email);
+    actualizarTabla();
+}
 
 const cobrarCliente = (e) => {
     //console.log(e.target.dataset.email);
@@ -213,10 +230,10 @@ const cobrarCliente = (e) => {
 
     if (!validarPago) {
         Swal.fire({
-                type: 'error',
-                title: 'Oops...',
-                text: 'El cliente no tiene fondos suficientes',
-            })
+            type: 'error',
+            title: 'Oops...',
+            text: 'El cliente no tiene fondos suficientes',
+        })
     } else {
         actualizarTabla();
     }
